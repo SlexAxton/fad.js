@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>fad.js Demo Page</title>
+</head>
+<body>
+
+
+<script src="../fad.js"></script>
+<script>
+  // Configure our options
+  fad.configure({
+
+    // Location of the background frame
+    frameLocation : "../fadframe.html",
+
+    // The default option is to inject individual iframes for
+    // each ad. Setting this option to true only creates one, and
+    // injects the correct content back in.
+    forceSingle   : true
+  });
+
+  // Call the load function
+  fad.load([
+    {
+      selector       : "#ad1",
+      refreshTimeout : 5000
+    },
+    {
+      selector : "#ad2"
+    }
+  ]);
+
+</script>
+</body>
+</html>
