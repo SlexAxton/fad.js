@@ -1,9 +1,11 @@
 (function(global, doc, undefined) {
-  
+  // Eventually global fad function.
+  // Call this for a good time.
   var fad = function ( adList ) {
 
   };
 
+  // Default options
   fad.options = {
     frameLocation : '/fadframe.html',
     forceSingle   : false
