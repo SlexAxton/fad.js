@@ -7,6 +7,8 @@
     }
   };
   
+  var iframes = {};
+  
   // Hot dom ready implementation.
   var alReady = function( n, t, ready ) {
     ready = function(){ for ( t = 0; ready && t < n; ) ready[ t++ ](); ready = 0 }
@@ -26,19 +28,27 @@
       iframe.style.display = 'none';
       iframe.src = fad.options.frameLocation;
       iframe.onload = function() {
-        if ( script && iframe.contentWindow.loadAd ) {
-          iframe.contentWindow.loadAd( ad, script );
+        var content = iframe.contentWindow || iframe.contentDocument.defaultView;
+        if ( script && content.loadAd ) {
+          content.loadAd( ad, script );
         }
       };
+      iframes[ ad.id ] = iframe;
       doc.body.appendChild( iframe );
     });
   };
   
   // Let an iframe inject an ad back into the dom.
   fad.hollaback = function ( ad, html ) {
-    var element = document.getElementById( ad.id );
-    if (element )
+    var element = document.getElementById( ad.id ),
+        iframe;
+    if ( element ) {
       element.innerHTML = html;
+      // Cleanup iframes.
+      if ( (iframe = iframes[ ad.id ]) && iframe.parentNode ) {
+      	iframe.parentNode.removeChild( iframe );
+      }
+    }
   };
 
   // Default options

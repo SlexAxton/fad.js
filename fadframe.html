@@ -3,14 +3,18 @@
   <body>
     <script type="text/javascript">
       function loadAd( ad, script ) {
-        var f = new Function( script.innerHTML + '; return' );
-        f();
-        var interval = setInterval(function() {
+        script = new Function( script.innerHTML );
+        try {
+          script();
+        } catch( e ) {}
+        
+        // I have no clue why I have to do this :(
+        var interval = setInterval( function() {
           if (document.body) {
-            parent.fad.hollaback( ad, document.body.innerHTML );
             clearInterval(interval);
+            parent.fad.hollaback( ad, document.body.innerHTML );
           }
-        }, 5);
+        }, 5 );
       }
     </script>
   </body>
