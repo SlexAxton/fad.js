@@ -17,22 +17,24 @@
     return function( fn ){ ready ? ready[ n++ ] = fn : fn() }
   }( 0, 1 );
   
+  // Load an ad in an iframe.
   var boom = function ( ad ) {
     alReady(function() {
-      var iframe = doc.createElement( 'iframe' );
+      var iframe = doc.createElement( 'iframe' ),
+          container = doc.getElementById( ad.id ),
+          script = container && container.children.length && container.children[0];
       iframe.style.display = 'none';
-      iframe.src = fad.options.frameLocation;
-      doc.body.appendChild( iframe );
+      iframe.src = fad.options.frameLocation + '?' + (+new Date); // Bust caches.
       iframe.onload = function() {
-        var container = doc.getElementById( ad.id );
-        var script = container && container.children.length && container.children[0];
         if ( script && iframe.contentWindow.loadAd ) {
           iframe.contentWindow.loadAd( ad, script );
         }
-      }
+      };
+      doc.body.appendChild( iframe );
     });
   };
   
+  // Let an iframe inject an ad back into the dom.
   fad.hollaback = function ( ad, html ) {
     var element = document.getElementById( ad.id );
     if (element )

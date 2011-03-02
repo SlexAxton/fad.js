@@ -3,8 +3,14 @@
   <body>
     <script type="text/javascript">
       function loadAd( ad, script ) {
-        eval( script.innerHTML );
-        parent.fad.hollaback( ad, document.body.innerHTML );
+        var f = new Function( script.innerHTML + '; return' );
+        f();
+        var interval = setInterval(function() {
+          if (document.body) {
+            parent.fad.hollaback( ad, document.body.innerHTML );
+            clearInterval(interval);
+          }
+        }, 5);
       }
     </script>
   </body>
