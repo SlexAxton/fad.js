@@ -24,7 +24,7 @@
           container = doc.getElementById( ad.id ),
           script = container && container.children.length && container.children[0];
       iframe.style.display = 'none';
-      iframe.src = fad.options.frameLocation + '?' + (+new Date); // Bust caches.
+      iframe.src = fad.options.frameLocation;
       iframe.onload = function() {
         if ( script && iframe.contentWindow.loadAd ) {
           iframe.contentWindow.loadAd( ad, script );
