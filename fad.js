@@ -1,4 +1,4 @@
-(function(global, doc, undefined) {
+(function( global, doc, undefined ) {
   // Eventually global fad function.
   // Call this for a good time.
   var fad = function ( adList ) {
@@ -70,4 +70,4 @@
   };
 
   global.fad = fad;
-})(this, this.document);
+})( this, this.document );
