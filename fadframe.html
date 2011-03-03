@@ -2,19 +2,24 @@
   <head><title></title></head>
   <body>
     <script type="text/javascript">
+      var alReady = function( n, t, ready ) {
+        ready = function(){ for ( t = 0; ready && t < n; ) ready[ t++ ](); ready = 0 }
+        document.addEventListener && document.addEventListener( "DOMContentLoaded", ready, false )
+        !function check() {
+          ready && setTimeout( /^u|g$/.test( document.readyState ) ? check : ready, t *= 2 )
+        }()
+        return function( fn ){ ready ? ready[ n++ ] = fn : fn() }
+      }( 0, 1 );
+    
       function loadAd( ad, script ) {
         script = new Function( script.innerHTML );
         try {
           script();
         } catch( e ) {}
         
-        // I have no clue why I have to do this :(
-        var interval = setInterval( function() {
-          if (document.body) {
-            clearInterval(interval);
-            parent.fad.hollaback( ad, document.body.innerHTML );
-          }
-        }, 5 );
+        alReady(function() {
+          parent.fad.hollaback( ad, document.body.innerHTML );
+        });
       }
     </script>
   </body>
