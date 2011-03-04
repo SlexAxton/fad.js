@@ -7,9 +7,10 @@
     }
   };
   
+  // Keep track of iframes we create so we can clean them up.
   var iframes = {};
   
-  // Hot dom ready implementation.
+  // Hot DOM ready implementation.
   var alReady = function( n, t, ready ) {
     ready = function(){ for ( t = 0; ready && t < n; ) ready[ t++ ](); ready = 0 }
     doc.addEventListener && doc.addEventListener( "DOMContentLoaded", ready, false )
@@ -22,13 +23,16 @@
   // Load an ad in an iframe.
   var boom = function ( ad ) {
     alReady(function() {
+      // Create an iframe and grab the ad's code.
       var iframe = doc.createElement( 'iframe' ),
           container = doc.getElementById( ad.id ),
           script = container && container.children.length && container.children[0];
       
+      // Ninja frame.
       iframe.style.display = 'none';
       iframe.src = fad.options.frameLocation;
       
+      // Send the ad's code to the iframe when it loads.
       var onload = function() {
         var content = iframe.contentWindow || iframe.contentDocument.defaultView;
         if ( script && content.loadAd ) {
@@ -36,18 +40,20 @@
         }
       };
       
+      // IE doesn't fire .onload for programatically created iframes.
       if ( iframe.addEventListener ) {
         iframe.addEventListener( "load", onload, false );
       } else if ( iframe.attachEvent ) {
         iframe.attachEvent( "onload", onload );
       }
   		
+      // Add the iframe to the document.
       iframes[ ad.id ] = iframe;
       doc.body.appendChild( iframe );
     });
   };
   
-  // Let an iframe inject an ad back into the dom.
+  // Let an iframe inject its ad code back into the dom.
   fad.hollaback = function ( ad, html ) {
     var element = document.getElementById( ad.id ),
         iframe;
