@@ -1,3 +1,14 @@
+/**
+ * fad.js
+ * version 0.0.0.0.o_O.1
+ *
+ * complain to @AaronForsander
+ *
+ * https://github.com/SlexAxton/fad.js/
+ *
+ * Tri-license - WTFPL | MIT | BSD
+ *
+ */
 (function( global, doc, undefined ) {
   // Eventually global fad function.
   // Call this for a good time.
@@ -30,7 +41,6 @@
       
       // Ninja frame.
       iframe.style.display = 'none';
-      iframe.src = fad.options.frameLocation;
       
       // Send the ad's code to the iframe when it loads.
       var onload = function() {
@@ -50,6 +60,8 @@
       // Add the iframe to the document.
       iframes[ ad.id ] = iframe;
       doc.body.appendChild( iframe );
+      
+      iframe.src = fad.options.frameLocation;
     });
   };
   
