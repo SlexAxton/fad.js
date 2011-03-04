@@ -25,14 +25,23 @@
       var iframe = doc.createElement( 'iframe' ),
           container = doc.getElementById( ad.id ),
           script = container && container.children.length && container.children[0];
+      
       iframe.style.display = 'none';
       iframe.src = fad.options.frameLocation;
-      iframe.onload = function() {
+      
+      var onload = function() {
         var content = iframe.contentWindow || iframe.contentDocument.defaultView;
         if ( script && content.loadAd ) {
           content.loadAd( ad, script );
         }
       };
+      
+      if ( iframe.addEventListener ) {
+        iframe.addEventListener( "load", onload, false );
+      } else if ( iframe.attachEvent ) {
+        iframe.attachEvent( "onload", onload );
+      }
+  		
       iframes[ ad.id ] = iframe;
       doc.body.appendChild( iframe );
     });
