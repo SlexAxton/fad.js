@@ -46,7 +46,9 @@
 
         // Grab the ad output and put it back into the DOM.
         div.innerHTML = iwin.document.body.innerHTML;
-        div.id = script.id;
+        if (script.id)
+          div.id = script.id;
+          
         script.parentNode.insertBefore( div, script );
 
         // Clean up.  Can we reuse the iframe?
