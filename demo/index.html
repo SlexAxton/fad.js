@@ -8,40 +8,16 @@
 
 <div id="content">
   <h1>There are ads on this page!</h1>
-  <div id="ad1">
-    <script type="script/fad">
-      document.write('something inane');
-    </script>
-  </div>
+  <script id="ad1" type="script/fad">
+    document.write('something inane');
+  </script>
   <p>Lorem Ipsum</p>
-  <div id="ad2">
-    <script type="script/fad">
-      document.write('something else inane');
-    </script>
-  </div>
+  <script id="ad2" type="script/fad">
+    document.write('something else inane');
+  </script>
 </div>
 
 
 <script src="../fad.js"></script>
-<script type="text/javascript">
-  // Configure our options
-  fad.configure({
-
-    // Location of the background frame
-    frameLocation : "../fadframe.html",
-
-    // The default option is to inject individual iframes for
-    // each ad. Setting this option to true only creates one, and
-    // injects the correct content back in.
-    forceSingle   : true
-  });
-
-  // Call the load function
-  fad([
-    { id : "ad1", refreshTimeout : 5000 },
-    { id : "ad2" }
-  ]);
-
-</script>
 </body>
 </html>
